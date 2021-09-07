@@ -1,0 +1,15 @@
+---
+env: 
+  # окружение в котором предполагается работа приложения
+  node: true
+
+extends:
+  - 'airbnb-base'
+
+parserOptions:
+  ecmaVersion: 12 #в образце Хекслет была 11 версия, но в июне 2021 вышла 12 версия стандарта
+  sourceType: module
+
+rules:
+  no-console: 0
+  import/extensions: 0 # FIXME: remove when rule will be adjusted for new nodejs version
