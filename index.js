@@ -1,20 +1,23 @@
 import fs from 'fs';
 import path from 'path';
 
+const parseFileJSON = (filepath) => {
+  const fileContent = fs.readFileSync(filepath, { encoding: 'utf8' });
+  return JSON.parse(fileContent);
+};
+
 const genDiff = (filePath1, filePath2) => {
 // find difference between two JSON files
 
-  // const filePath11 = '../__tests__/fixtures/file1.json';
-  const filePath11 = '/home/adadurovin/frontend-project-lvl2/__tests__/fixtures/file1.json';
-  // const filePath22 = '../__tests__/fixtures/file2.json';
-  const filePath22 = '/home/adadurovin/frontend-project-lvl2/__tests__/fixtures/file2.json';
+  // const filePath11 = '../fixtures/file1.json';
+  const filePath11 = '/home/adadurovin/frontend-project-lvl2/fixtures/file1.json';
+  // const filePath22 = '../fixtures/file2.json';
+  const filePath22 = '/home/adadurovin/frontend-project-lvl2/fixtures/file2.json';
 
-  const firstFileContent = fs.readFileSync(filePath11, { encoding: 'utf8' });
-  const firstJSONParsed = JSON.parse(firstFileContent);
+  const firstJSONParsed = parseFileJSON(filePath11);
   const firstObjectKeys = Object.keys(firstJSONParsed);
 
-  const secondFileContent = fs.readFileSync(filePath22, { encoding: 'utf8' });
-  const secondJSONParsed = JSON.parse(secondFileContent);
+  const secondJSONParsed = parseFileJSON(filePath22);
   const secondObjectKeys = Object.keys(secondJSONParsed);
 
   const uniqueKeysNames = Array.from(new Set([...firstObjectKeys, ...secondObjectKeys])).sort();
@@ -23,7 +26,6 @@ const genDiff = (filePath1, filePath2) => {
     if (key in firstJSONParsed && key in secondJSONParsed) {
       if (firstJSONParsed[key] === secondJSONParsed[key]) {
         acc[key] = firstJSONParsed[key];
-        // console.log(acc);
         return acc;
       }
       acc[`- ${key}`] = firstJSONParsed[key];
