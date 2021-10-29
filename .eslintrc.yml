@@ -1,10 +1,15 @@
 ---
-env: 
-  # окружение в котором предполагается работа приложения
+env:
+  es2021: true
   node: true
+  jest: true
+
+plugins:
+  - jest
 
 extends:
-  - 'airbnb-base'
+  - airbnb-base
+  - plugin:jest/recommended
 
 parserOptions:
   ecmaVersion: 12 #в образце Хекслет была 11 версия, но в июне 2021 вышла 12 версия стандарта
