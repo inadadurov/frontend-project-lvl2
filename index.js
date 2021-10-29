@@ -52,3 +52,5 @@ const genDiff = (firstFilePath, secondFilePath) => {
 };
 
 export default genDiff;
+
+// test comment
