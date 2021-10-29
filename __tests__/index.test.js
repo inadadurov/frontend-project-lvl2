@@ -12,6 +12,5 @@ const pathOne = path.join(__dirname, '..', 'fixtures', 'file1.json');
 const pathTwo = path.join(__dirname, '..', 'fixtures', 'file2.json');
 
 test('get difference between two plain JSON', () => {
-    expect(genDiff(pathOne, pathTwo)).toBe(resultingString);
-
+  expect(genDiff(pathOne, pathTwo)).toBe(resultingString);
 });
