@@ -10,7 +10,12 @@ const resultingString = '{\n- follow: false\nhost: hexlet.io\n- proxy: 123.234.5
 
 const pathOne = path.join(__dirname, '..', 'fixtures', 'file1.json');
 const pathTwo = path.join(__dirname, '..', 'fixtures', 'file2.json');
+const pathWrongFile = path.join(__dirname, '..', 'fixtures', 'file_wrong.json');
 
-test('get difference between two plain JSON', () => {
+test('correct difference between two plain JSON', () => {
   expect(genDiff(pathOne, pathTwo)).toBe(resultingString);
+});
+
+test('wrong difference between two plain JSON', () => {
+  expect(genDiff(pathOne, pathWrongFile)).not.toBe(resultingString);
 });

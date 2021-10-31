@@ -9,9 +9,6 @@ const parseFileJSON = (filepath) => {
 const genDiff = (firstFilePath, secondFilePath) => {
 // find difference between two JSON files
 
-  // const firstFilePath = path.join(__dirname, '..', 'fixtures', 'file1.json');
-  // const secondFilePath = path.join(__dirname, '..', 'fixtures', 'file2.json');
-
   const firstJSONParsed = parseFileJSON(firstFilePath);
   const firstObjectKeys = Object.keys(firstJSONParsed);
 
@@ -24,21 +21,21 @@ const genDiff = (firstFilePath, secondFilePath) => {
     if (key in firstJSONParsed && key in secondJSONParsed) {
       if (firstJSONParsed[key] === secondJSONParsed[key]) {
         acc[key] = firstJSONParsed[key];
-        return acc;
+//         return acc;
       }
       acc[`- ${key}`] = firstJSONParsed[key];
       acc[`+ ${key}`] = secondJSONParsed[key];
-      return acc;
+//       return acc;
     }
 
     if (key in firstJSONParsed) {
       acc[`- ${key}`] = firstJSONParsed[key];
-      return acc;
+//       return acc;
     }
 
     if (key in secondJSONParsed) {
       acc[`+ ${key}`] = secondJSONParsed[key];
-      return acc;
+//       return acc;
     }
 
     return acc;
