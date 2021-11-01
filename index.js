@@ -21,21 +21,21 @@ const genDiff = (firstFilePath, secondFilePath) => {
     if (key in firstJSONParsed && key in secondJSONParsed) {
       if (firstJSONParsed[key] === secondJSONParsed[key]) {
         acc[key] = firstJSONParsed[key];
-//         return acc;
+        return acc;
       }
       acc[`- ${key}`] = firstJSONParsed[key];
       acc[`+ ${key}`] = secondJSONParsed[key];
-//       return acc;
+      return acc;
     }
 
     if (key in firstJSONParsed) {
       acc[`- ${key}`] = firstJSONParsed[key];
-//       return acc;
+      return acc;
     }
 
     if (key in secondJSONParsed) {
       acc[`+ ${key}`] = secondJSONParsed[key];
-//       return acc;
+      return acc;
     }
 
     return acc;
