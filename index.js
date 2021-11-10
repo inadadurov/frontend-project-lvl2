@@ -1,40 +1,36 @@
-import fs from 'fs';
-// import path from 'path';
-
-const parseFileJSON = (filepath) => {
-  const fileContent = fs.readFileSync(filepath, { encoding: 'utf8' });
-  return JSON.parse(fileContent);
-};
+import { parseFile } from './src/parsers.js';
 
 const genDiff = (firstFilePath, secondFilePath) => {
 // find difference between two JSON files
 
-  const firstJSONParsed = parseFileJSON(firstFilePath);
-  const firstObjectKeys = Object.keys(firstJSONParsed);
+  const firstFileParsed = parseFile(firstFilePath);
+  const firstObjectKeys = Object.keys(firstFileParsed);
+  // console.log(firstFileParsed);
 
-  const secondJSONParsed = parseFileJSON(secondFilePath);
-  const secondObjectKeys = Object.keys(secondJSONParsed);
+  const secondFileParsed = parseFile(secondFilePath);
+  const secondObjectKeys = Object.keys(secondFileParsed);
+  // console.log(secondFileParsed);
 
   const uniqueKeysNames = Array.from(new Set([...firstObjectKeys, ...secondObjectKeys])).sort();
 
   const diffRecord = uniqueKeysNames.reduce((acc, key) => {
-    if (key in firstJSONParsed && key in secondJSONParsed) {
-      if (firstJSONParsed[key] === secondJSONParsed[key]) {
-        acc[key] = firstJSONParsed[key];
+    if (key in firstFileParsed && key in secondFileParsed) {
+      if (firstFileParsed[key] === secondFileParsed[key]) {
+        acc[key] = firstFileParsed[key];
         return acc;
       }
-      acc[`- ${key}`] = firstJSONParsed[key];
-      acc[`+ ${key}`] = secondJSONParsed[key];
+      acc[`- ${key}`] = firstFileParsed[key];
+      acc[`+ ${key}`] = secondFileParsed[key];
       return acc;
     }
 
-    if (key in firstJSONParsed) {
-      acc[`- ${key}`] = firstJSONParsed[key];
+    if (key in firstFileParsed) {
+      acc[`- ${key}`] = firstFileParsed[key];
       return acc;
     }
 
-    if (key in secondJSONParsed) {
-      acc[`+ ${key}`] = secondJSONParsed[key];
+    if (key in secondFileParsed) {
+      acc[`+ ${key}`] = secondFileParsed[key];
       return acc;
     }
 
