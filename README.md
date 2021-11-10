@@ -10,5 +10,5 @@ Test Coverage:<br />
 ESLinter checks status: <br />
 <a href="https://github.com/inadadurov/frontend-project-lvl2/actions/workflows/onPushESLinter-check.yml"><img src="https://github.com/inadadurov/frontend-project-lvl1/actions/workflows/onPushESLinter-check.yml/badge.svg" /></a>
 <br />
-Example 1. Comparison of two plain JSON files:
-<a href="https://asciinema.org/a/VVbr0OANkVHrKWVGGeGdO5jAd" target="_blank"><img src="https://asciinema.org/a/VVbr0OANkVHrKWVGGeGdO5jAd.svg"  width="450" height="225"/></a>
+Example 1. Comparison of two plain JSON files:<br />
+<a href="https://asciinema.org/a/VVbr0OANkVHrKWVGGeGdO5jAd" target="_blank"><img src="https://asciinema.org/a/VVbr0OANkVHrKWVGGeGdO5jAd.svg"  width="640" height="480"/></a>
