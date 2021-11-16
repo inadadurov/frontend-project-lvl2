@@ -1,3 +1,11 @@
 node_modules
 path_to_files_tmp.txt
 /bin/study.js
+/fixtures/plainJsonFile1.json
+/fixtures/plainJsonFile2.json
+/fixtures/plainJsonFileWrong.json
+/fixtures/plainYmlFile1.yml
+/fixtures/plainYmlFile2.yaml
+/fixtures/plainYmlFileWrong.yml
+/fixtures/jsonFileWrong.json
+/fixtures/ymlFileWrong.yml

@@ -1,47 +1,46 @@
+import _ from 'lodash';
 import { parseFile } from './src/parsers.js';
 
-const genDiff = (firstFilePath, secondFilePath) => {
-// find difference between two JSON files
-
-  const firstFileParsed = parseFile(firstFilePath);
-  const firstObjectKeys = Object.keys(firstFileParsed);
-  // console.log(firstFileParsed);
-
-  const secondFileParsed = parseFile(secondFilePath);
-  const secondObjectKeys = Object.keys(secondFileParsed);
-  // console.log(secondFileParsed);
+const makeDiffRecord = (objectOne, objectTwo) => {
+  const firstObjectKeys = Object.keys(objectOne);
+  const secondObjectKeys = Object.keys(objectTwo);
 
   const uniqueKeysNames = Array.from(new Set([...firstObjectKeys, ...secondObjectKeys])).sort();
 
   const diffRecord = uniqueKeysNames.reduce((acc, key) => {
-    if (key in firstFileParsed && key in secondFileParsed) {
-      if (firstFileParsed[key] === secondFileParsed[key]) {
-        acc[key] = firstFileParsed[key];
-        return acc;
+    const objOneKeyValIsObject = _.isObject(objectOne[key]);
+    const objTwoKeyValIsObject = _.isObject(objectTwo[key]);
+
+    if (key in objectOne && key in objectTwo) {
+      if (objOneKeyValIsObject && objTwoKeyValIsObject) {
+        acc[key] = makeDiffRecord(objectOne[key], objectTwo[key]);
+      } else if (!objOneKeyValIsObject || !objTwoKeyValIsObject) {
+        if (objectOne[key] === objectTwo[key]) {
+          acc[key] = objectOne[key];
+        } else {
+          acc[`- ${key}`] = objectOne[key];
+          acc[`+ ${key}`] = objectTwo[key];
+        }
       }
-      acc[`- ${key}`] = firstFileParsed[key];
-      acc[`+ ${key}`] = secondFileParsed[key];
-      return acc;
-    }
-
-    if (key in firstFileParsed) {
-      acc[`- ${key}`] = firstFileParsed[key];
-      return acc;
-    }
-
-    if (key in secondFileParsed) {
-      acc[`+ ${key}`] = secondFileParsed[key];
-      return acc;
-    }
+    } else if (key in objectOne && !(key in objectTwo)) {
+      acc[`- ${key}`] = objectOne[key];
+    } else acc[`+ ${key}`] = objectTwo[key];
 
     return acc;
   }, {});
 
-  const diffToString = `{\n${Object.entries(diffRecord).map(([key, value]) => `${key}: ${value}`).join('\n')}\n}`;
+  return diffRecord;
+};
 
-  const c = diffToString;
+const genDiff = (firstFilePath, secondFilePath) => {
+  const firstFileParsed = parseFile(firstFilePath);
+  const secondFileParsed = parseFile(secondFilePath);
 
-  return c;
+  const differenceObject = makeDiffRecord(firstFileParsed, secondFileParsed);
+
+  // console.log(JSON.stringify(differenceObject));
+
+  return differenceObject;
 };
 
 export default genDiff;
