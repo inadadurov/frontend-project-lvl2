@@ -16,4 +16,5 @@ ESLinter checks status: <br />
 ### Example 1. Comparison of two plain JSON files:<br />
 <a href="https://asciinema.org/a/VVbr0OANkVHrKWVGGeGdO5jAd" target="_blank"><img src="https://asciinema.org/a/VVbr0OANkVHrKWVGGeGdO5jAd.svg" /></a>
 
-
+### Example 2. Output of comparison with default formatting aond another format called "otherFormat":<br />
+<a href="https://asciinema.org/a/HGqKMZIbLJFpQi7E6sRPs52P9" target="_blank"><img src="https://asciinema.org/a/HGqKMZIbLJFpQi7E6sRPs52P9.svg" /></a>

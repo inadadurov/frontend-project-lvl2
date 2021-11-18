@@ -2,7 +2,7 @@
 
 import { program } from 'commander';
 import genDiff from '../index.js';
-import makeOutputString from '../src/makeoutput.js';
+import { makeOutputString } from '../src/makeoutput.js';
 // const program = new commander.Command();
 
 program

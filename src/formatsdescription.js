@@ -9,10 +9,10 @@ const fStylish = {
 
 const otherFormat = {
   startWith: '{',
-  endWith: '\n}',
-  spacing: '*',
-  defaultSpacingQty: 2,
-  ifSignSpacingQty: 2,
+  endWith: '}',
+  spacing: '.',
+  defaultSpacingQty: 3,
+  ifSignSpacingQty: 1,
   separator: ': ',
 };
 
