@@ -3,7 +3,7 @@ import { fileURLToPath } from 'url';
 import * as path from 'path';
 import { test, expect } from '@jest/globals';
 import { parseFile } from '../src/parsers.js';
-import makeFStylishOutput from '../formatters/formatterfstylish.js'
+import makeFStylishOutput from '../formatters/formatterfstylish.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
