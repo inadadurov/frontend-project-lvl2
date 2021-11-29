@@ -2,8 +2,8 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import * as path from 'path';
 import { test, expect } from '@jest/globals';
-import { makeOutputString } from '../src/makeoutput.js';
 import { parseFile } from '../src/parsers.js';
+import makeFStylishOutput from '../formatters/formatterfstylish.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,5 +15,10 @@ const refDiffObjPath = path.join(__dirname, '..', 'fixtures', 'CorrectDiffObject
 
 test('Application of "stylish" format is correct', () => {
   const diffObj = parseFile(refDiffObjPath);
-  expect(makeOutputString(diffObj, '')).toMatch(referenceString);
+  expect(makeFStylishOutput(diffObj, '')).toMatch(referenceString);
+});
+
+test('Application of "plain" format is correct', () => {
+  const diffObj = parseFile(refDiffObjPath);
+  expect(makeFStylishOutput(diffObj, '')).toMatch(referenceString);
 });

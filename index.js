@@ -1,5 +1,7 @@
 import _ from 'lodash';
 import { parseFile } from './src/parsers.js';
+import makePlainOutput from './formatters/formatterplain.js';
+import makeFStylishOutput from './formatters/formatterfstylish.js';
 
 const makeDiffRecord = (objectOne, objectTwo) => {
   const firstObjectKeys = Object.keys(objectOne);
@@ -32,15 +34,14 @@ const makeDiffRecord = (objectOne, objectTwo) => {
   return diffRecord;
 };
 
-const genDiff = (firstFilePath, secondFilePath) => {
+const genDiff = (firstFilePath, secondFilePath, formatName) => {
   const firstFileParsed = parseFile(firstFilePath);
   const secondFileParsed = parseFile(secondFilePath);
 
   const differenceObject = makeDiffRecord(firstFileParsed, secondFileParsed);
 
-  // console.log(JSON.stringify(differenceObject));
-
-  return differenceObject;
+  if (formatName === 'plain') return makePlainOutput(differenceObject);
+  return makeFStylishOutput(differenceObject);
 };
 
-export default genDiff;
+export { genDiff, makeDiffRecord };

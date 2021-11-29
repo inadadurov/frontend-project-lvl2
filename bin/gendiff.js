@@ -2,8 +2,6 @@
 
 import { program } from 'commander';
 import genDiff from '../index.js';
-import { makeOutputString } from '../src/makeoutput.js';
-// const program = new commander.Command();
 
 program
   .description('Compares two configuration files and shows a difference.')
@@ -12,8 +10,7 @@ program
   .option('-f, --format [type]', 'output format', 'stylish')
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2, options) => {
-    const difference = genDiff(filepath1, filepath2);
-    const output = makeOutputString(difference, options.format);
+    const output = genDiff(filepath1, filepath2, options.format);
     console.log(output);
   });
 

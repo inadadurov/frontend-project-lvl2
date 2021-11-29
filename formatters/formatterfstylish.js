@@ -1,34 +1,13 @@
 import _ from 'lodash';
-import * as formats from './formatsdescription.js';
+import { fStylish } from './formatsdescription.js';
 
-/*
-const fStylish = {
-  startWith: '{\n',
-  endWith: '\n}',
-  newLineSpacing: ' ',
-  defaultSpacingQty: 2,
-  noDiffSignSpacingQty: 2,
-  separator: ': ',
-  newline: '\n',
-};
-*/
-
-const setFormat = (outputFormat) => {
-  if (outputFormat === 'otherFormat') {
-    return formats.otherFormat;
-  }
-  return formats.fStylish;
-};
-
-const makeOutputString = (inputObj, outputFormat) => {
-  const format = setFormat(outputFormat);
-
-  const { startWith } = format;
-  const { endWith } = format;
-  const { spacing } = format;
-  const { defaultSpacingQty } = format;
-  const { ifSignSpacingQty } = format;
-  const { separator } = format;
+const makeFStylishOutput = (inputObj) => {
+  const { startWith } = fStylish;
+  const { endWith } = fStylish;
+  const { spacing } = fStylish;
+  const { defaultSpacingQty } = fStylish;
+  const { ifSignSpacingQty } = fStylish;
+  const { separator } = fStylish;
 
   const makeString = (currentValue, currDepthLevel) => {
     if (_.isObject(currentValue) === false) {
@@ -61,4 +40,4 @@ const makeOutputString = (inputObj, outputFormat) => {
   return makeString(inputObj, 0);
 };
 
-export { makeOutputString, setFormat };
+export default makeFStylishOutput;

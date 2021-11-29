@@ -1,6 +1,7 @@
 node_modules
 path_to_files_tmp.txt
 /bin/study.js
+/src/testsolution.js
 /fixtures/plainJsonFile1.json
 /fixtures/plainJsonFile2.json
 /fixtures/plainJsonFileWrong.json
