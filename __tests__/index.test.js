@@ -1,7 +1,8 @@
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import * as path from 'path';
 import { test, expect } from '@jest/globals';
-import { makeDiffRecord } from '../index.js';
+import { genDiff, makeDiffRecord } from '../index.js';
 import { parseFile } from '../src/parsers.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -28,4 +29,18 @@ const YML2Parsed = parseFile(pathYML2);
 
 test('correct diff object created for YML', () => {
   expect(makeDiffRecord(YML1Parsed, YML2Parsed)).toMatchObject(diffObject);
+});
+
+const refStringFilePathPlain = path.join(__dirname, '..', 'fixtures', 'CorrectDiffString_FormatPlain.txt');
+const referenceStringPlain = fs.readFileSync(refStringFilePathPlain, { encoding: 'utf8' });
+
+test('correct output for "plain" format', () => {
+  expect(genDiff(pathYML1, pathYML2, 'plain')).toMatch(referenceStringPlain);
+});
+
+const refStringFilePathfStylish = path.join(__dirname, '..', 'fixtures', 'CorrectDiffString_FormatStylish.txt');
+const referenceStringfStylish = fs.readFileSync(refStringFilePathfStylish, { encoding: 'utf8' });
+
+test('correct output for default format', () => {
+  expect(genDiff(pathYML1, pathYML2, 'fStylish')).toMatch(referenceStringfStylish);
 });
