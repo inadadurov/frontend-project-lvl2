@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { parseFile } from './src/parsers.js';
 import makePlainOutput from './formatters/formatterplain.js';
 import makeFStylishOutput from './formatters/formatterfstylish.js';
+import makeJsonOutput from './formatters/formatterjson.js';
 
 const makeDiffRecord = (objectOne, objectTwo) => {
   const firstObjectKeys = Object.keys(objectOne);
@@ -41,6 +42,7 @@ const genDiff = (firstFilePath, secondFilePath, formatName) => {
   const differenceObject = makeDiffRecord(firstFileParsed, secondFileParsed);
 
   if (formatName === 'plain') return makePlainOutput(differenceObject);
+  if (formatName === 'json') return makeJsonOutput(differenceObject);
   return makeFStylishOutput(differenceObject);
 };
 

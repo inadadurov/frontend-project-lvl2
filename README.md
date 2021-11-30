@@ -23,3 +23,5 @@ ESLinter checks status:
 ### Example 3. Output of comparison with default "FSltylish" formatting and another format "plain":<br />
 <a href="https://asciinema.org/a/tEtdPn1iwLMQMJDXW4iOErV7O" target="_blank"><img src="https://asciinema.org/a/tEtdPn1iwLMQMJDXW4iOErV7O.svg" /></a>
 
+### Example 4. Output of comparison with format "json":<br />
+<a href="https://asciinema.org/a/AESnDoudbuxcgRpxhBUvwOcAl" target="_blank"><img src="https://asciinema.org/a/AESnDoudbuxcgRpxhBUvwOcAl.svg" /></a>

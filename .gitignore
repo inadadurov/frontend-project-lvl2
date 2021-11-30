@@ -10,3 +10,4 @@ path_to_files_tmp.txt
 /fixtures/plainYmlFileWrong.yml
 /fixtures/jsonFileWrong.json
 /fixtures/ymlFileWrong.yml
+/formatters/tests.js

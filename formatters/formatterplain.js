@@ -1,15 +1,6 @@
 import _ from 'lodash';
 import { plainFormat } from './formatsdescription.js';
-
-const getPropStatusAndValues = (propName, obj) => {
-  if (propName.charAt(0) === '+' || propName.charAt(0) === '-') {
-    const nameOnly = propName.substring(2, propName.length);
-    if (_.has(obj, `+ ${nameOnly}`) && _.has(obj, `- ${nameOnly}`)) return ['updated', obj[`- ${nameOnly}`], obj[`+ ${nameOnly}`]];
-    if (_.has(obj, `+ ${nameOnly}`) && !_.has(obj, `- ${nameOnly}`)) return ['added', undefined, obj[`+ ${nameOnly}`]];
-    return ['removed', obj[`- ${nameOnly}`], undefined];
-  }
-  return 'branch';
-};
+import { getPropStatusAndValues, putQuotesIfNeeded } from '../src/sharedfunctions.js';
 
 const makeSubString = (key, obj, path) => {
   const {
@@ -20,12 +11,10 @@ const makeSubString = (key, obj, path) => {
     updatedValLast,
   } = plainFormat;
 
-  const checkQuoteNeeded = (value) => ([true, false, null, undefined].includes(value) ? value : `'${value}'`);
-
   const propData = getPropStatusAndValues(key, obj);
   const propStatus = propData[0];
-  const oldVal = _.isObject(propData[1]) ? '[complex value]' : checkQuoteNeeded(propData[1]);
-  const newVal = _.isObject(propData[2]) ? '[complex value]' : checkQuoteNeeded(propData[2]);
+  const oldVal = _.isObject(propData[1]) ? '[complex value]' : putQuotesIfNeeded(propData[1]);
+  const newVal = _.isObject(propData[2]) ? '[complex value]' : putQuotesIfNeeded(propData[2]);
 
   const newSubString = [];
 

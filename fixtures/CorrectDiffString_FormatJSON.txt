@@ -1,0 +1,103 @@
+{
+    "common": {
+        "follow": {
+            "status": "added",
+            "value": false
+        },
+        "setting1": {
+            "status": "unchanged",
+            "value": "Value 1"
+        },
+        "setting2": {
+            "status": "removed",
+            "value": 200
+        },
+        "setting3": {
+            "status": "updated",
+            "oldValue": true,
+            "newValue": null
+        },
+        "setting4": {
+            "status": "added",
+            "value": "blah blah"
+        },
+        "setting5": {
+            "key5": {
+                "status": "unchanged",
+                "value": "value5"
+            }
+        },
+        "branch 'setting5' status": "added",
+        "setting6": {
+            "doge": {
+                "wow": {
+                    "status": "updated",
+                    "oldValue": "",
+                    "newValue": "so much"
+                }
+            },
+            "branch 'doge' status": "unchanged",
+            "key": {
+                "status": "unchanged",
+                "value": "value"
+            },
+            "ops": {
+                "status": "added",
+                "value": "vops"
+            }
+        },
+        "branch 'setting6' status": "unchanged"
+    },
+    "branch 'common' status": "unchanged",
+    "group1": {
+        "baz": {
+            "status": "updated",
+            "oldValue": "bas",
+            "newValue": "bars"
+        },
+        "foo": {
+            "status": "unchanged",
+            "value": "bar"
+        },
+        "nest": {
+            "status": "updated",
+            "oldValue": {
+                "key": "value"
+            },
+            "newValue": "str"
+        },
+        "branch 'nest' status": "updated"
+    },
+    "branch 'group1' status": "unchanged",
+    "group2": {
+        "abc": {
+            "status": "unchanged",
+            "value": 12345
+        },
+        "deep": {
+            "id": {
+                "status": "unchanged",
+                "value": 45
+            }
+        },
+        "branch 'deep' status": "unchanged"
+    },
+    "branch 'group2' status": "removed",
+    "group3": {
+        "deep": {
+            "id": {
+                "number": {
+                    "status": "unchanged",
+                    "value": 45
+                }
+            },
+            "branch 'id' status": "unchanged"
+        },
+        "branch 'deep' status": "unchanged",
+        "fee": {
+            "status": "unchanged",
+            "value": 100500
+        }
+    },
+    "branch 'group3' status": "added"
+}
