@@ -1,36 +1,80 @@
 import _ from 'lodash';
 import { parseFile } from './src/parsers.js';
-import makePlainOutput from './formatters/formatterplain.js';
-import makeFStylishOutput from './formatters/formatterfstylish.js';
-import makeJsonOutput from './formatters/formatterjson.js';
+import makePlainOutput from './src/formatters/formatterplain.js';
+import makeFStylishOutput from './src/formatters/formatterfstylish.js';
+import makeJsonOutput from './src/formatters/formatterjson.js';
+
+const writeChildrenInArray = (obj) => {
+  const entries = Object.entries(obj);
+
+  const asArray = entries.reduce((acc, [key, val]) => {
+    if (!_.isObject(val)) {
+      acc.push({
+        name: key, type: 'node', status: 'unchanged', valueOld: val,
+      });
+    } else {
+      acc.push({
+        name: key, type: 'node', status: 'unchanged', valueOld: writeChildrenInArray(val),
+      });
+    }
+    return acc;
+  }, []);
+
+  return asArray;
+};
 
 const makeDiffRecord = (objectOne, objectTwo) => {
   const firstObjectKeys = Object.keys(objectOne);
   const secondObjectKeys = Object.keys(objectTwo);
 
-  const uniqueKeysNames = Array.from(new Set([...firstObjectKeys, ...secondObjectKeys])).sort();
+  const uniqueKeysNames = _.union([...firstObjectKeys, ...secondObjectKeys]).sort();
 
   const diffRecord = uniqueKeysNames.reduce((acc, key) => {
     const objOneKeyValIsObject = _.isObject(objectOne[key]);
     const objTwoKeyValIsObject = _.isObject(objectTwo[key]);
 
+    const obj = {};
+
     if (key in objectOne && key in objectTwo) {
       if (objOneKeyValIsObject && objTwoKeyValIsObject) {
-        acc[key] = makeDiffRecord(objectOne[key], objectTwo[key]);
-      } else if (!objOneKeyValIsObject || !objTwoKeyValIsObject) {
+        _.assignIn(obj, {
+          name: key, type: 'branch', status: 'unchanged', valueOld: makeDiffRecord(objectOne[key], objectTwo[key]),
+        });
+      } else if (objOneKeyValIsObject && !objTwoKeyValIsObject) {
+        _.assignIn(obj, {
+          name: key, type: 'branch', typeNew: 'node', status: 'updated', valueOld: writeChildrenInArray(objectOne[key]), valueNew: objectTwo[key],
+        });
+      } else if (!objOneKeyValIsObject && objTwoKeyValIsObject) {
+        _.assignIn(obj, {
+          name: key, type: 'node', typeNew: 'branch', status: 'updated', valueOld: objectOne[key], valueNew: writeChildrenInArray(objectTwo[key]),
+        });
+      } else if (!objOneKeyValIsObject && !objTwoKeyValIsObject) {
         if (objectOne[key] === objectTwo[key]) {
-          acc[key] = objectOne[key];
+          _.assignIn(obj, {
+            name: key, type: 'node', status: 'unchanged', valueOld: objectOne[key],
+          });
         } else {
-          acc[`- ${key}`] = objectOne[key];
-          acc[`+ ${key}`] = objectTwo[key];
+          _.assignIn(obj, {
+            name: key, type: 'node', typeNew: 'node', status: 'updated', valueOld: objectOne[key], valueNew: objectTwo[key],
+          });
         }
       }
     } else if (key in objectOne && !(key in objectTwo)) {
-      acc[`- ${key}`] = objectOne[key];
-    } else acc[`+ ${key}`] = objectTwo[key];
+      const valueType = (objOneKeyValIsObject === true) ? 'branch' : 'node';
+      _.assignIn(obj, {
+        name: key, type: valueType, status: 'removed', valueOld: (valueType === 'branch' ? writeChildrenInArray(objectOne[key]) : objectOne[key]),
+      });
+    } else {
+      const valueType = (objTwoKeyValIsObject === true) ? 'branch' : 'node';
+      _.assignIn(obj, {
+        name: key, type: valueType, status: 'added', valueNew: (valueType === 'branch' ? writeChildrenInArray(objectTwo[key]) : objectTwo[key]),
+      });
+    }
+
+    acc.push(obj);
 
     return acc;
-  }, {});
+  }, []);
 
   return diffRecord;
 };
@@ -39,11 +83,11 @@ const genDiff = (firstFilePath, secondFilePath, formatName) => {
   const firstFileParsed = parseFile(firstFilePath);
   const secondFileParsed = parseFile(secondFilePath);
 
-  const differenceObject = makeDiffRecord(firstFileParsed, secondFileParsed);
+  const difference = makeDiffRecord(firstFileParsed, secondFileParsed);
 
-  if (formatName === 'plain') return makePlainOutput(differenceObject);
-  if (formatName === 'json') return makeJsonOutput(differenceObject);
-  return makeFStylishOutput(differenceObject);
+  if (formatName === 'plain') return makePlainOutput(difference);
+  if (formatName === 'json') return JSON.stringify(makeJsonOutput(difference), null, 4);
+  return makeFStylishOutput(difference);
 };
 
 export { genDiff, makeDiffRecord };

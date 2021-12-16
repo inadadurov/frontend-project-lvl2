@@ -15,4 +15,6 @@ const getPropStatusAndValues = (propName, obj) => {
 
 const putQuotesIfNeeded = (value) => ([true, false, null, undefined].includes(value) ? value : `'${value}'`);
 
-export { getPropStatusAndValues, putQuotesIfNeeded };
+const diffProperties = ['status', 'type', 'typeNew', 'valueOld', 'valueNew'];
+
+export { getPropStatusAndValues, putQuotesIfNeeded, diffProperties };
