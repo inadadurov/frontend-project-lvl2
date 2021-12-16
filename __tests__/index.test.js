@@ -2,8 +2,9 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import * as path from 'path';
 import { test, expect } from '@jest/globals';
-import { genDiff, makeDiffRecord } from '../index.js';
+import genDiff from '../index.js';
 import { parseFile } from '../src/parsers.js';
+import makeDiffRecord from '../src/diffrecord.js';
 import diffArray from '../fixtures/DiffArray.js';
 
 const __filename = fileURLToPath(import.meta.url);
