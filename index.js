@@ -90,4 +90,4 @@ const genDiff = (firstFilePath, secondFilePath, formatName) => {
   return makeFStylishOutput(difference);
 };
 
-export default genDiff;
+export { genDiff, makeDiffRecord };

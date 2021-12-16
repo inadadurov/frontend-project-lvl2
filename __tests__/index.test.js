@@ -1,9 +1,8 @@
-/* eslint-disable jest/no-commented-out-tests */
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import * as path from 'path';
 import { test, expect } from '@jest/globals';
-import genDiff from '../index.js';
+import { genDiff, makeDiffRecord } from '../index.js';
 import { parseFile } from '../src/parsers.js';
 import diffArray from '../fixtures/DiffArray.js';
 
@@ -23,14 +22,12 @@ test('correct diff object created for JSON', () => {
 // tests for YML files
 const pathYML1 = path.join(__dirname, '..', 'fixtures', 'ymlFile1.yml');
 const pathYML2 = path.join(__dirname, '..', 'fixtures', 'ymlFile2.yaml');
-// const YML1Parsed = parseFile(pathYML1);
-// const YML2Parsed = parseFile(pathYML2);
+const YML1Parsed = parseFile(pathYML1);
+const YML2Parsed = parseFile(pathYML2);
 
-/*
 test('correct diff object created for YML', () => {
   expect(makeDiffRecord(YML1Parsed, YML2Parsed)).toEqual(diffArray);
 });
-*/
 
 const refStringFilePathPlain = path.join(__dirname, '..', 'fixtures', 'CorrectDiffString_FormatPlain.txt');
 const referenceStringPlain = fs.readFileSync(refStringFilePathPlain, { encoding: 'utf8' });
