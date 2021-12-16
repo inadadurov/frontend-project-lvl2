@@ -6,8 +6,8 @@ import * as parsers from '../src/parsers.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const pathOne = path.join(__dirname, '..', 'fixtures', 'ymlFile1.yml');
-const pathTwo = path.join(__dirname, '..', 'fixtures', 'jsonFile1.json');
+const pathOne = path.join(__dirname, '..', '__fixtures__', 'file1.yml');
+const pathTwo = path.join(__dirname, '..', '__fixtures__', 'file1.json');
 
 // Tests file extensions identified right
 test('correct YML file format detection', () => {
@@ -47,6 +47,7 @@ const templateFileOneParsed = {
     },
   },
 };
+
 test('JSON file parsed correctly', () => {
   expect(parsers.parseFile(pathTwo)).toMatchObject(templateFileOneParsed);
 });
