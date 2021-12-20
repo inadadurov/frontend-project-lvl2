@@ -3,12 +3,21 @@
   "version": "0.0.1",
   "description": "difference detector",
   "main": "index.js",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
+  "simple-git-hooks": {
+    "pre-push": "make lint"
+  },
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "test": "npx jest --bail"
   },
   "type": "module",
   "repository": {
-    "type": "module",
+    "type": "git",
     "url": "git+https://github.com/inadadurov/frontend-project-lvl2.git"
   },
   "keywords": [
