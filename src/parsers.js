@@ -11,7 +11,7 @@ const parseFile = (filepath) => {
 
   const fileContent = fs.readFileSync(filepath, { encoding: 'utf8' });
 
-  if (fileFormat === '.json') return JSON.parse(fileContent); 
+  if (fileFormat === '.json') return JSON.parse(fileContent);
   if (fileFormat === '.yml' || fileFormat === '.yaml') return yaml.load(fileContent);
 
   return 'wrong file format';
