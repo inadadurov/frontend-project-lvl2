@@ -38,9 +38,6 @@ const makeFStylishOutput = (inputDiff) => {
           return `${spacingBefore}- ${val.name}${fStylish.separator}${valOld}\n${spacingBefore}+ ${val.name}${fStylish.separator}${valNew}`;
         }
       }
-      if (val.name === 'nest') {
-        console.log('');
-      }
       if (val.type === 'branch' && val.status === 'unchanged') {
         return `${spacingBefore}${val.name}${fStylish.separator}${makeString(val.valueOld, depth + 1)}`;
       }

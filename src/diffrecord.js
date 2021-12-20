@@ -4,14 +4,15 @@ const writeChildrenInArray = (obj) => {
   const entries = Object.entries(obj);
 
   const asArray = entries.reduce((acc, [key, val]) => {
+    const { length } = acc;
     if (!_.isObject(val)) {
-      acc.push({
+      acc[length] = {
         name: key, type: 'node', status: 'unchanged', valueOld: val,
-      });
+      };
     } else {
-      acc.push({
+      acc[length] = {
         name: key, type: 'node', status: 'unchanged', valueOld: writeChildrenInArray(val),
-      });
+      };
     }
     return acc;
   }, []);
@@ -67,7 +68,8 @@ const makeDiffRecord = (objectOne, objectTwo) => {
       });
     }
 
-    acc.push(obj);
+    const { length } = acc;
+    acc[length] = obj;
 
     return acc;
   }, []);
