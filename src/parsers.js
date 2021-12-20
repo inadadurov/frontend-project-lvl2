@@ -11,14 +11,10 @@ const parseFile = (filepath) => {
 
   const fileContent = fs.readFileSync(filepath, { encoding: 'utf8' });
 
-  let parsedData;
-  if (fileFormat === '.json') {
-    parsedData = JSON.parse(fileContent);
-  } else if (fileFormat === '.yml' || fileFormat === '.yaml') {
-    parsedData = yaml.load(fileContent);
-  }
+  if (fileFormat === '.json') return JSON.parse(fileContent); 
+  if (fileFormat === '.yml' || fileFormat === '.yaml') return yaml.load(fileContent);
 
-  return parsedData;
+  return 'wrong file format';
 };
 
 export { parseFile, getFileFormat };
