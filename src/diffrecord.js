@@ -6,15 +6,13 @@ const writeChildrenInArray = (obj) => {
   const asArray = entries.reduce((acc, [key, val]) => {
     const { length } = acc;
     if (!_.isObject(val)) {
-      acc[length] = {
+      return [...acc, {
         name: key, type: 'node', status: 'unchanged', valueOld: val,
-      };
-    } else {
-      acc[length] = {
-        name: key, type: 'node', status: 'unchanged', valueOld: writeChildrenInArray(val),
-      };
+      }];
     }
-    return acc;
+    return [...acc, {
+      name: key, type: 'node', status: 'unchanged', valueOld: writeChildrenInArray(val),
+    }];
   }, []);
 
   return asArray;
