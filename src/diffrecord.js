@@ -4,7 +4,6 @@ const writeChildrenInArray = (obj) => {
   const entries = Object.entries(obj);
 
   const asArray = entries.reduce((acc, [key, val]) => {
-    const { length } = acc;
     if (!_.isObject(val)) {
       return [...acc, {
         name: key, type: 'node', status: 'unchanged', valueOld: val,
@@ -66,10 +65,7 @@ const makeDiffRecord = (objectOne, objectTwo) => {
       });
     }
 
-    const { length } = acc;
-    acc[length] = obj;
-
-    return acc;
+    return [...acc, obj];
   }, []);
 
   return diffRecord;
