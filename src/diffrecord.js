@@ -21,7 +21,7 @@ const makeDiffRecord = (objectOne, objectTwo) => {
   const firstObjectKeys = Object.keys(objectOne);
   const secondObjectKeys = Object.keys(objectTwo);
 
-  const uniqueKeysNames = _.union([...firstObjectKeys, ...secondObjectKeys]).sort();
+  const uniqueKeysNames = _.sortBy(_.union([...firstObjectKeys, ...secondObjectKeys]));
 
   const diffRecord = uniqueKeysNames.reduce((acc, key) => {
     const objOneKeyValIsObject = _.isObject(objectOne[key]);
